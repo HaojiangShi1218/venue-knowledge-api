@@ -16,6 +16,10 @@ class VenueRepository:
         self.session.add(venue)
         return venue
 
+    def list_all(self) -> list[Venue]:
+        stmt: Select[tuple[Venue]] = select(Venue).order_by(Venue.created_at.asc(), Venue.id.asc())
+        return list(self.session.scalars(stmt).all())
+
     def list(
         self,
         *,

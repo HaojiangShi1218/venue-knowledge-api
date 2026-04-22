@@ -1,0 +1,255 @@
+{
+  "info": {
+    "_postman_id": "01cd832e-5901-4c4a-8127-5b6865423219",
+    "name": "TeloHive Venue Knowledge Assistant API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52778940",
+    "_collection_link": "https://go.postman.co/collection/52778940-01cd832e-5901-4c4a-8127-5b6865423219?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "GET /health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/health",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "health"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST /venues",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const response = pm.response.json();",
+              "if (response.id) {",
+              "    pm.collectionVariables.set(\"venue_id\", response.id);",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"external_id\": \"venue_001\",\n  \"name\": \"Skyline Foundry\",\n  \"city\": \"Boston\",\n  \"neighborhood\": \"Seaport\",\n  \"capacity\": 120,\n  \"price_per_head_usd\": 95,\n  \"venue_type\": \"rooftop\",\n  \"amenities\": [\"AV\", \"bar\", \"wifi\", \"private_room\"],\n  \"tags\": [\"startup\", \"networking\", \"demo_day\", \"industrial\"],\n  \"description\": \"Industrial-style rooftop venue suitable for startup mixers, product launches, and private evening events.\",\n  \"outside_catering\": false,\n  \"alcohol_allowed\": true,\n  \"min_notice_days\": 7\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/venues",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "venues"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /venues",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/venues",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "venues"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST /documents",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"external_doc_id\": \"doc_001\",\n  \"venue_id\": \"{{venue_id}}\",\n  \"title\": \"Skyline Foundry FAQ\",\n  \"document_type\": \"faq\",\n  \"content\": \"Skyline Foundry supports startup mixers, networking events, and demo days. Outside catering is not allowed. Built-in AV support includes wireless microphones, projector output, and a presentation monitor.\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/documents",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "documents"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /documents",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/documents",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "documents"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST /indexing/run",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"document_ids\": [\"17bc369c-b3b6-4d1b-8a7c-cb36785b9aee\"]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/indexing/run",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "indexing",
+            "run"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST /queries",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const response = pm.response.json();",
+              "if (response.query_id) {",
+              "    pm.collectionVariables.set(\"query_id\", response.query_id);",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"question\": \"Which venues allow outside catering?\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/queries",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "queries"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /queries/{query_id}",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/queries/{{query_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "queries",
+            "{{query_id}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": ""
+    },
+    {
+      "key": "query_id",
+      "value": ""
+    },
+    {
+      "key": "venue_id",
+      "value": ""
+    }
+  ]
+}

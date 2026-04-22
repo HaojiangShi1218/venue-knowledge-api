@@ -155,6 +155,12 @@ If migrations are not already applied automatically:
 docker compose exec api alembic upgrade head
 ```
 
+### 5. Wipe and recreate the DB
+```bash
+docker compose down -v
+docker compose up --build
+```
+
 ## Sample Data
 
 Sample data lives in:
@@ -220,6 +226,8 @@ pytest -q
 - `GET /queries/{query_id}`
 
 ## Example API Usage
+
+Note: a Postman collection for the main API flow is included in `postman/`.
 
 ### Create a venue
 ```bash
